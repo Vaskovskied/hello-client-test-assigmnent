@@ -1,10 +1,10 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import Home from "./Home";
 import Details from "./Details";
 import NavigationContainer from "../components/NavigationContainer";
 import Group from "./Group";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <NavigationContainer />,
