@@ -7,6 +7,7 @@ import { NavBarItemProps } from "../NavBarItem/props.types";
 import { useLocation } from "react-router-dom";
 import RawNavBarItemGroup from "../NavBarItemGroup";
 import { NavBarItemGroupProps } from "../NavBarItemGroup/props.types";
+import NavBarSubItem from "../NavBarSubItem";
 
 const NavigationContainer = ({ children }: PropsWithChildren) => {
   const location = useLocation();
@@ -53,9 +54,9 @@ const NavigationContainer = ({ children }: PropsWithChildren) => {
           Details
         </NavBarItem>
         <NavBarItemGroup icon={<Group />} title="Group">
-          <NavBarItem to={"/a"}>One</NavBarItem>
-          <NavBarItem to={"/b"}>Two</NavBarItem>
-          <NavBarItem to={"/c"}>Three</NavBarItem>
+          <NavBarSubItem to={"/group/1"}>One</NavBarSubItem>
+          <NavBarSubItem to={"/group/2"}>Two</NavBarSubItem>
+          <NavBarSubItem to={"/group/3"}>Three</NavBarSubItem>
         </NavBarItemGroup>
       </NavBar>
       <main className="flex-grow pl-4 py-2 pr-2">{children}</main>

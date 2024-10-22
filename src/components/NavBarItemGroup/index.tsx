@@ -1,10 +1,10 @@
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavBarVariant } from "../NavBar/props.types";
 import { NavBarItemGroupProps } from "./props.types";
 import {
-  FloatingList,
-  FloatingPortal,
-  useClick,
+  flip,
+  offset,
+  safePolygon,
   useFloating,
   useHover,
   useInteractions,
@@ -46,21 +46,23 @@ const NavBarItemGroup = ({
   const { refs, floatingStyles, context } = useFloating({
     open: floatingMenuOpen,
     onOpenChange: changeFloatingMenuOpen,
+    strategy: "fixed",
+    placement: "right",
+    middleware: [offset(16), flip()],
   });
 
-  // const hover = useHover(context);
-  const click = useClick(context);
+  const hover = useHover(context, { handleClose: safePolygon() });
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([click]);
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
 
   return (
     <li className="py-3 px-2">
       <div
         role="button"
         className="flex gap-2 select-none hover:text-blue-500"
+        onClick={expand}
         ref={refs.setReference}
         {...getReferenceProps()}
-        // onClick={expand}
       >
         {icon}
         {variant === NavBarVariant.Expanded ? title : null}
@@ -69,13 +71,13 @@ const NavBarItemGroup = ({
         <ul className="pl-6">{children}</ul>
       ) : variant === NavBarVariant.Folded && floatingMenuOpen ? (
         <div
+          className="bg-white min-w-32 rounded-md p-4 shadow-md border-gray-300"
           ref={refs.setFloating}
-          className="bg-white rounded-md p-2 shadow-md  border-gray-300 "
           style={floatingStyles}
           {...getFloatingProps()}
         >
           <h2 className="w-bold">{title}</h2>
-          <ul>{children}</ul>
+          <ul className="pl-6">{children}</ul>
         </div>
       ) : null}
     </li>
