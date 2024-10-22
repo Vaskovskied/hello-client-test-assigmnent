@@ -7,7 +7,8 @@ import { NavBarItemProps } from "../NavBarItem/props.types";
 import { Outlet, useLocation } from "react-router-dom";
 import RawNavBarItemGroup from "../NavBarItemGroup";
 import { NavBarItemGroupProps } from "../NavBarItemGroup/props.types";
-import NavBarSubItem from "../NavBarSubItem";
+import RawNavBarSubItem from "../NavBarSubItem";
+import { NavBarSubItemProps } from "../NavBarSubItem/props.types";
 
 const NavigationContainer = () => {
   const location = useLocation();
@@ -26,9 +27,24 @@ const NavigationContainer = () => {
 
   const NavBarItemGroup = useCallback(
     (props: NavBarItemGroupProps) => (
-      <RawNavBarItemGroup {...props} variant={variant} />
+      <RawNavBarItemGroup
+        variant={variant}
+        selected={
+          props?.to
+            ? location.pathname.split("/")[1] === props.to.slice(1)
+            : false
+        }
+        {...props}
+      />
     ),
-    [variant]
+    [variant, location.pathname]
+  );
+
+  const NavBarSubItem = useCallback(
+    (props: NavBarSubItemProps) => (
+      <RawNavBarSubItem selected={props?.to === location.pathname} {...props} />
+    ),
+    [location.pathname]
   );
 
   const onClickExpandButton = () => {
@@ -53,7 +69,7 @@ const NavigationContainer = () => {
         <NavBarItem icon={<InfoCircle />} to="/details">
           Details
         </NavBarItem>
-        <NavBarItemGroup icon={<Group />} title="Group">
+        <NavBarItemGroup icon={<Group />} title="Group" to="/group">
           <NavBarSubItem to={"/group/1"}>One</NavBarSubItem>
           <NavBarSubItem to={"/group/2"}>Two</NavBarSubItem>
           <NavBarSubItem to={"/group/3"}>Three</NavBarSubItem>

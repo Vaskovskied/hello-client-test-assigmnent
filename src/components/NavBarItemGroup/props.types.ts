@@ -5,5 +5,7 @@ export interface NavBarItemGroupProps extends PropsWithChildren {
   title: string;
   variant?: NavBarVariant;
   icon: ReactNode;
+  to?: string;
+  selected?: boolean;
   onClick?: (title: string, children: ReactNode) => void;
 }

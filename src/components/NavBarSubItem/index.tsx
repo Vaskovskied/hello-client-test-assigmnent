@@ -9,9 +9,9 @@ const NavBarSubItem = ({
 }: NavBarSubItemProps) => {
   return (
     <li
-      className={`py-3 px-2 select-none hover:text-blue-500 ${
+      className={`py-3 px-2 select-none hover:text-blue-500 list-disc ${
         selected ? "text-blue-700" : ""
-      } list-disc`}
+      }`}
     >
       {to ? (
         <Link to={to}>{children}</Link>

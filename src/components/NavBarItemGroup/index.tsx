@@ -17,6 +17,7 @@ const NavBarItemGroup = ({
   variant = NavBarVariant.Expanded,
   children,
   onClick,
+  selected,
 }: NavBarItemGroupProps) => {
   const [expanded, setExpanded] = useState(false);
   const [floatingMenuOpen, setFloatingMenuOpen] = useState(false);
@@ -30,7 +31,6 @@ const NavBarItemGroup = ({
   };
 
   const changeFloatingMenuOpen = (open: boolean) => {
-    console.log(open);
     if (variant === NavBarVariant.Folded) {
       setFloatingMenuOpen(open);
     } else {
@@ -60,7 +60,9 @@ const NavBarItemGroup = ({
     <li className="py-3 px-2">
       <div
         role="button"
-        className="flex gap-2 select-none hover:text-blue-500"
+        className={`flex gap-2 select-none hover:text-blue-500 ${
+          selected ? "text-blue-700" : ""
+        }`}
         onClick={expand}
         ref={refs.setReference}
         {...getReferenceProps()}

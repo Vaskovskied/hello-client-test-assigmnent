@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./Home";
 import Details from "./Details";
 import NavigationContainer from "../components/NavigationContainer";
+import Group from "./Group";
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,10 @@ const router = createBrowserRouter([
       {
         path: "/details",
         element: <Details />,
+      },
+      {
+        path: "/group/:number",
+        element: <Group />,
       },
     ],
   },
