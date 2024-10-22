@@ -1,50 +1,14 @@
-# React + TypeScript + Vite
+## Требования
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. ☑️ Логика работы соответствует видео и макетам
+2. ☑️ Меню должно быть написано с использованием JSX-нотации, то есть полностью компонентный подход, JSON-like конфигурационные объекты не подойдут
+3. ☑️ Использовать React, TypeScript, Tailwind
 
-Currently, two official plugins are available:
+## Плюсом будет
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **_ Удобный компонентный API при котором интегрировать такое меню не вызывает сложностей \* _**
+2. ☑️ Интегрировать работу меню с React Router
+3. ❌ Полезные комменты в коде
+4. ☑️ Мобильный вариант ⭐ — при изменении размеров вью-порта, меню адаптирует свою работу под мобильные устройства
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- Поскольку писать это совсем на голом JSX без объектов, скажем прямо, нетривиальная задача (мотивацию ставить которую я до сих пор не очень понимаю), назвать решение идеальным сложно как минимум потому, что идеальным его считать не склонен я сам. Но в поставленных требованиях лучше ничего не придумал. Так, скажем, без того, чтоб передавать в сгрупированный пункт массив опций, сложно представить, как показывать выбрана ли она из них в самом пункте. В прочем, с тем как написаны компоненты не составляет никакого труда написать уже более расхожее и привычное всем решение, так как их вполне себе можно назвать глупыми.
