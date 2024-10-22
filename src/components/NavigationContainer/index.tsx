@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import RawNavBarItem from "../NavBarItem";
 import { Group, Home, InfoCircle } from "iconoir-react";
@@ -9,10 +9,19 @@ import RawNavBarItemGroup from "../NavBarItemGroup";
 import { NavBarItemGroupProps } from "../NavBarItemGroup/props.types";
 import RawNavBarSubItem from "../NavBarSubItem";
 import { NavBarSubItemProps } from "../NavBarSubItem/props.types";
+import useWindowDimensions from "../../hooks/useWindowDemensions";
 
 const NavigationContainer = () => {
+  const { width } = useWindowDimensions();
+  const isDeviceSmall = width <= 768;
   const location = useLocation();
   const [variant, setVariant] = useState(NavBarVariant.Expanded);
+
+  useEffect(() => {
+    if (isDeviceSmall) {
+      setVariant(NavBarVariant.Mobile);
+    }
+  }, [isDeviceSmall]);
 
   const NavBarItem = useCallback(
     (props: NavBarItemProps) => (
@@ -57,7 +66,11 @@ const NavigationContainer = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div
+      className={`flex h-screen ${
+        variant === NavBarVariant.Mobile ? "flex-col-reverse" : ""
+      }`}
+    >
       <NavBar
         variant={variant}
         showExpandButton
