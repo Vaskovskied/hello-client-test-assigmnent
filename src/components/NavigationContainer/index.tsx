@@ -1,15 +1,15 @@
-import { PropsWithChildren, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import NavBar from "../NavBar";
 import RawNavBarItem from "../NavBarItem";
 import { Group, Home, InfoCircle } from "iconoir-react";
 import { NavBarVariant } from "../NavBar/props.types";
 import { NavBarItemProps } from "../NavBarItem/props.types";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import RawNavBarItemGroup from "../NavBarItemGroup";
 import { NavBarItemGroupProps } from "../NavBarItemGroup/props.types";
 import NavBarSubItem from "../NavBarSubItem";
 
-const NavigationContainer = ({ children }: PropsWithChildren) => {
+const NavigationContainer = () => {
   const location = useLocation();
   const [variant, setVariant] = useState(NavBarVariant.Expanded);
 
@@ -59,7 +59,9 @@ const NavigationContainer = ({ children }: PropsWithChildren) => {
           <NavBarSubItem to={"/group/3"}>Three</NavBarSubItem>
         </NavBarItemGroup>
       </NavBar>
-      <main className="flex-grow pl-4 py-2 pr-2">{children}</main>
+      <main className="flex-grow pl-4 py-2 pr-2">
+        <Outlet />
+      </main>
     </div>
   );
 };

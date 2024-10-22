@@ -3,6 +3,7 @@ import { NavBarVariant } from "../NavBar/props.types";
 import { NavBarItemGroupProps } from "./props.types";
 import {
   flip,
+  FloatingPortal,
   offset,
   safePolygon,
   useFloating,
@@ -70,15 +71,17 @@ const NavBarItemGroup = ({
       {variant === NavBarVariant.Expanded && expanded ? (
         <ul className="pl-6">{children}</ul>
       ) : variant === NavBarVariant.Folded && floatingMenuOpen ? (
-        <div
-          className="bg-white min-w-32 rounded-md p-4 shadow-md border-gray-300"
-          ref={refs.setFloating}
-          style={floatingStyles}
-          {...getFloatingProps()}
-        >
-          <h2 className="w-bold">{title}</h2>
-          <ul className="pl-6">{children}</ul>
-        </div>
+        <FloatingPortal>
+          <div
+            className="bg-white min-w-32 rounded-md p-4 shadow-md border-gray-300"
+            ref={refs.setFloating}
+            style={floatingStyles}
+            {...getFloatingProps()}
+          >
+            <h2 className="w-bold">{title}</h2>
+            <ul className="pl-6">{children}</ul>
+          </div>
+        </FloatingPortal>
       ) : null}
     </li>
   );
