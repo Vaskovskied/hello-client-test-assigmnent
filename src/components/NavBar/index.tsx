@@ -18,7 +18,10 @@ const NavBar = ({
           <ul>{children}</ul>
         </nav>
         {showExpandButton ? (
-          <button onClick={onClickExpandButton} className="p-2">
+          <button
+            onClick={onClickExpandButton}
+            className="p-2 hover:text-blue-500"
+          >
             {variant === NavBarVariant.Expanded ? (
               <FastArrowLeft />
             ) : (

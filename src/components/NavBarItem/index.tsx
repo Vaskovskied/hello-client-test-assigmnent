@@ -22,7 +22,11 @@ const NavBarItem = ({
   );
 
   return (
-    <li className={`py-3 px-2 ${selected ? "text-blue-700" : ""}`}>
+    <li
+      className={`py-3 px-2 select-none hover:text-blue-500 ${
+        selected ? "text-blue-700" : ""
+      }`}
+    >
       {to ? (
         <Link to={to} className="flex gap-2">
           <Content />

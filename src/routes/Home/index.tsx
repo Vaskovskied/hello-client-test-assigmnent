@@ -1,11 +1,5 @@
-import NavigationContainer from "../../components/NavigationContainer";
-
 const Home = () => {
-  return (
-    <NavigationContainer>
-      <div>Home</div>
-    </NavigationContainer>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;
