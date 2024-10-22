@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import NavBar from "../NavBar";
 import RawNavBarItem from "../NavBarItem";
 import { Group, Home, InfoCircle } from "iconoir-react";
@@ -10,18 +10,32 @@ import { NavBarItemGroupProps } from "../NavBarItemGroup/props.types";
 import RawNavBarSubItem from "../NavBarSubItem";
 import { NavBarSubItemProps } from "../NavBarSubItem/props.types";
 import useWindowDimensions from "../../hooks/useWindowDemensions";
+import Modal from "../Modal";
 
 const NavigationContainer = () => {
   const { width } = useWindowDimensions();
+
   const isDeviceSmall = width <= 768;
+
   const location = useLocation();
   const [variant, setVariant] = useState(NavBarVariant.Expanded);
+  const [groupModal, setGroupModal] = useState<{
+    title: string;
+    children: ReactNode;
+  } | null>(null);
 
   useEffect(() => {
     if (isDeviceSmall) {
       setVariant(NavBarVariant.Mobile);
+    } else {
+      setVariant(NavBarVariant.Folded);
+      setGroupModal(null);
     }
   }, [isDeviceSmall]);
+
+  useEffect(() => {
+    setGroupModal(null);
+  }, [location.pathname]);
 
   const NavBarItem = useCallback(
     (props: NavBarItemProps) => (
@@ -35,17 +49,31 @@ const NavigationContainer = () => {
   );
 
   const NavBarItemGroup = useCallback(
-    (props: NavBarItemGroupProps) => (
-      <RawNavBarItemGroup
-        variant={variant}
-        selected={
-          props?.to
-            ? location.pathname.split("/")[1] === props.to.slice(1)
-            : false
-        }
-        {...props}
-      />
-    ),
+    (props: NavBarItemGroupProps) => {
+      const onClick =
+        variant === NavBarVariant.Mobile
+          ? (title: string, children: ReactNode) => {
+              setGroupModal({
+                title: title || "",
+                children: children,
+              });
+            }
+          : undefined;
+
+      return (
+        <RawNavBarItemGroup
+          onClick={onClick}
+          variant={variant}
+          selected={
+            props?.to
+              ? location.pathname.split("/")[1] === props.to.slice(1)
+              : false
+          }
+          {...props}
+        />
+      );
+    },
+
     [variant, location.pathname]
   );
 
@@ -91,6 +119,13 @@ const NavigationContainer = () => {
       <main className="flex-grow pl-4 py-2 pr-2">
         <Outlet />
       </main>
+      <Modal
+        open={Boolean(groupModal?.title)}
+        title={groupModal?.title || ""}
+        onClose={() => setGroupModal(null)}
+      >
+        {groupModal?.children}
+      </Modal>
     </div>
   );
 };
